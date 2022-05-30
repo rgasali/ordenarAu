@@ -1,6 +1,19 @@
+let btnGenerarArreglo = <HTMLButtonElement>(
+  document.getElementById("btnGenerarArreglo")
+);
+let divMostrarArrAuxiliar = <HTMLDivElement>(
+  document.getElementById("divMostrarArrAuxiliar")
+);
 let a: number[] = new Array();
 let aux: number[] = new Array();
 let n: number;
+let copiaArreglo = a;
+function generarArreglo(arreglo: number[], largo: number) {
+  for (let i = 0; i < largo; i++) {
+    arreglo.push(Number(prompt("ingrese un valor")));
+  }
+  return arreglo;
+}
 
 function cargarArregloAuxiliar(arreglo: number[], arregloDeIndices: number[]) {
   for (let i = 0; i < arreglo.length; i++) {
@@ -17,7 +30,6 @@ function comparar(numeroIzq: number, numeroDer: number) {
 }
 
 function ordenrArregloAuxiliar(arreglo: number[], arregloAuxiliar: number[]) {
-  let copiaArreglo = arreglo;
   for (let j = 0; j < arregloAuxiliar.length; j++) {
     for (let i = 1; i < arreglo.length; i++) {
       if (comparar(copiaArreglo[i - 1], copiaArreglo[i]) === 1) {
@@ -31,18 +43,15 @@ function ordenrArregloAuxiliar(arreglo: number[], arregloAuxiliar: number[]) {
       }
     }
   }
+  return arregloAuxiliar;
 }
 
-a[0] = 12;
-a[1] = 3;
-a[2] = 27;
-a[3] = 16;
-a[4] = 5;
-
-cargarArregloAuxiliar(a, aux);
-console.log(aux);
-console.log(a);
-
-ordenrArregloAuxiliar(a, aux);
-
-console.log(aux);
+btnGenerarArreglo.addEventListener("click", () => {
+  n = Number(prompt("ingrese el tamaño del arreglo"));
+  a = generarArreglo(a, n);
+  cargarArregloAuxiliar(a, aux);
+  ordenrArregloAuxiliar(a, aux);
+  divMostrarArrAuxiliar.innerHTML = String(
+    `el arreglo cargado es ${a}. El arreglo de posiciones en orden ascendente es ${aux} y el largo del arreglo es ${n} posiciones`
+  );
+});
